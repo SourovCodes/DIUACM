@@ -1,0 +1,99 @@
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches:
+      - testing # Change this to your production branch
+  workflow_dispatch: # Allows manual triggering
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Install production dependencies
+        run: |
+          rm -rf node_modules
+          npm ci --only=production
+
+      - name: Create deployment package
+        run: |
+          # Create a directory with all files needed for production
+          mkdir -p deploy-package
+
+          # Copy built application
+          cp -r .next deploy-package/
+
+          # Copy production node_modules
+          cp -r node_modules deploy-package/
+
+          # Copy other necessary files
+          cp package.json deploy-package/
+          cp package-lock.json deploy-package/
+          cp next.config.ts deploy-package/
+
+          # Copy public assets
+          cp -r public deploy-package/
+
+          # Copy any other necessary files (add as needed)
+          # cp server.js deploy-package/
+          # cp -r db deploy-package/
+          # cp -r lib deploy-package/
+          # cp -r components deploy-package/
+
+          # Optional: Copy all source files if needed by your production setup
+          cp -r app deploy-package/ || true
+          cp -r components deploy-package/ || true
+          cp -r db deploy-package/ || true
+          cp -r lib deploy-package/ || true
+          cp -r hooks deploy-package/ || true
+          cp -r migrations deploy-package/ || true
+          cp drizzle.config.ts deploy-package/ || true
+          cp tsconfig.json deploy-package/ || true
+
+      - name: Deploy to server via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./deploy-package/
+          server-dir: / # Change this to your server directory path
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/.cache/**
+            **/.env*
+            **/README.md
+            **/.github/**
+            **/docs/**
+
+      - name: Deployment completed
+        run: |
+          echo "🚀 Deployment completed successfully!"
+          echo "📦 Deployed files include:"
+          echo "  - Built Next.js application (.next/)"
+          echo "  - Production node_modules"
+          echo "  - Configuration files"
+          echo "  - Public assets"
+          echo "  - Source code (if needed)"
