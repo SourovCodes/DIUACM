@@ -45,9 +45,7 @@ const MarkdownImage = ({ src, alt, title }: MarkdownImageProps) => {
   );
 };
 
-export async function generateStaticParams() {
-  return [];
-}
+
 
 interface BlogDetailPageProps {
   params: Promise<{

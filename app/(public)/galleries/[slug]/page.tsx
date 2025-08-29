@@ -7,9 +7,7 @@ import { GalleryGrid } from "./components/gallery-grid";
 interface GalleryDetailPageProps {
   params: Promise<{ slug: string }>;
 }
-export async function generateStaticParams() {
-  return [];
-}
+
 
 export async function generateMetadata({
   params,
