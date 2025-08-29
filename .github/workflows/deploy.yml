@@ -75,14 +75,23 @@ jobs:
           cp drizzle.config.ts deploy-package/ || true
           cp tsconfig.json deploy-package/ || true
 
-      - name: Deploy to server via FTP
+      - name: Create deployment zip
+        run: |
+          cd deploy-package
+          zip -r ../deployment.zip .
+          cd ..
+          echo "📦 Created deployment.zip with size: $(du -h deployment.zip | cut -f1)"
+
+      - name: Deploy zip file to server via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./deploy-package/
+          local-dir: ./
           server-dir: /bdixtest.diuacm.com/
+          include: |
+            deployment.zip
           exclude: |
             **/.git*
             **/.git*/**
@@ -95,7 +104,9 @@ jobs:
       - name: Deployment completed
         run: |
           echo "🚀 Deployment completed successfully!"
-          echo "📦 Deployed files include:"
+          echo "📦 Uploaded deployment.zip to /bdixtest.diuacm.com/"
+          echo "💡 Extract the zip file on your server to deploy the application"
+          echo "📋 Deployment package includes:"
           echo "  - Built Next.js application (.next/)"
           echo "  - Production node_modules"
           echo "  - Configuration files"
