@@ -3,7 +3,7 @@ name: Build and Deploy to Production
 on:
   push:
     branches:
-      - testing # Change this to your production branch
+      - testing
   workflow_dispatch: # Allows manual triggering
 
 env:
