@@ -81,6 +81,8 @@ jobs:
           zip -r ../deployment.zip .
           cd ..
           echo "📦 Created deployment.zip with size: $(du -h deployment.zip | cut -f1)"
+          # Remove the deploy-package directory since we only need the zip
+          rm -rf deploy-package
 
       - name: Deploy zip file to server via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -90,16 +92,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /bdixtest.diuacm.com/
-          include: |
-            deployment.zip
+          log-level: minimal
           exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/.cache/**
-            **/.env*
-            **/README.md
-            **/.github/**
-            **/docs/**
+            **/*
+            !deployment.zip
 
       - name: Deployment completed
         run: |
