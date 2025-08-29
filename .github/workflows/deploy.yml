@@ -30,6 +30,10 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          # Uncomment and add your environment variables as needed
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          # NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          # NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
 
       - name: Install production dependencies
         run: |
