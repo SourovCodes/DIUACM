@@ -87,7 +87,16 @@ class PaidEventForm
                             ])
                             ->visibility(visibility: 'public')
                             ->helperText('Recommended size: 1000x700px (10:7 aspect ratio)'),
-                    ]),
+                        SpatieMediaLibraryFileUpload::make('tshirt_size_guideline')
+                            ->label('T-shirt Size Guideline')
+                            ->collection('tshirt_size_guideline')
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->visibility(visibility: 'public')
+                            ->helperText('Upload a size chart image to help participants choose their T-shirt size'),
+                    ])
+                    ->columns(2),
             ]);
     }
 }

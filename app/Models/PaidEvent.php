@@ -114,5 +114,10 @@ class PaidEvent extends Model implements HasMedia
                     ->fit(Fit::Contain, 1000, 700)
                     ->nonQueued();
             });
+
+        $this
+            ->addMediaCollection('tshirt_size_guideline')
+            ->singleFile()
+            ->useDisk(diskName: 'media');
     }
 }

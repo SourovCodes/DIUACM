@@ -72,3 +72,12 @@ test('paid event has banner image media collection', function () {
     // Verify we can work with the banner_image collection
     expect($paidEvent->getMedia('banner_image')->count())->toBe(0);
 });
+
+test('paid event has tshirt size guideline media collection', function () {
+    $paidEvent = PaidEvent::factory()->create();
+
+    expect($paidEvent)->toBeInstanceOf(\Spatie\MediaLibrary\HasMedia::class);
+    
+    // Verify we can work with the tshirt_size_guideline collection
+    expect($paidEvent->getMedia('tshirt_size_guideline')->count())->toBe(0);
+});
