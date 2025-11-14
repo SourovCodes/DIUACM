@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaidEventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgrammerController;
 use App\Http\Controllers\TrackerController;
@@ -26,6 +27,9 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 Route::post('/events/{event}/attendance', [EventController::class, 'storeAttendance'])->name('events.attendance.store');
+
+Route::get('/paid-events', [PaidEventController::class, 'index'])->name('paid-events.index');
+Route::get('/paid-events/{paidEvent:slug}', [PaidEventController::class, 'show'])->name('paid-events.show');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blogPost}', [BlogController::class, 'show'])->name('blog.show');
