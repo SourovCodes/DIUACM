@@ -29,6 +29,27 @@ class PaidEventFactory extends Factory
             'registration_deadline' => $deadline,
             'registration_limit' => fake()->optional(0.7)->numberBetween(20, 100),
             'registration_fee' => fake()->randomFloat(2, 100, 1500),
+            'student_id_rules' => fake()->optional()->randomElement(['regex:/^[0-9-]+$/', 'regex:/^\d{3}-\d{2}-\d{4}$/']),
+            'student_id_rules_guide' => fake()->optional()->sentence(),
+            'pickup_points' => fake()->optional()->randomElements([
+                ['name' => 'Main Gate'],
+                ['name' => 'Library'],
+                ['name' => 'Cafeteria'],
+            ], fake()->numberBetween(1, 3)),
+            'departments' => fake()->optional()->randomElements([
+                ['name' => 'CSE'],
+                ['name' => 'EEE'],
+                ['name' => 'BBA'],
+            ], fake()->numberBetween(1, 3)),
+            'sections' => fake()->optional()->randomElements([
+                ['name' => 'A'],
+                ['name' => 'B'],
+                ['name' => 'C'],
+            ], fake()->numberBetween(1, 3)),
+            'lab_teacher_names' => fake()->optional()->randomElements([
+                ['initial' => 'ABC', 'full_name' => 'Dr. John Doe'],
+                ['initial' => 'XYZ', 'full_name' => 'Dr. Jane Smith'],
+            ], fake()->numberBetween(1, 2)),
             'status' => fake()->randomElement(['draft', 'published', 'closed']),
         ];
     }

@@ -68,7 +68,7 @@ test('paid event has banner image media collection', function () {
     $paidEvent = PaidEvent::factory()->create();
 
     expect($paidEvent)->toBeInstanceOf(\Spatie\MediaLibrary\HasMedia::class);
-    
+
     // Verify we can work with the banner_image collection
     expect($paidEvent->getMedia('banner_image')->count())->toBe(0);
 });
@@ -77,7 +77,7 @@ test('paid event has tshirt size guideline media collection', function () {
     $paidEvent = PaidEvent::factory()->create();
 
     expect($paidEvent)->toBeInstanceOf(\Spatie\MediaLibrary\HasMedia::class);
-    
+
     // Verify we can work with the tshirt_size_guideline collection
     expect($paidEvent->getMedia('tshirt_size_guideline')->count())->toBe(0);
 });
@@ -88,4 +88,34 @@ test('paid event has registration fee', function () {
     ]);
 
     expect($paidEvent->registration_fee)->toBe('500.50');
+});
+
+test('paid event has registration form configuration fields', function () {
+    $paidEvent = PaidEvent::factory()->create([
+        'student_id_rules' => 'regex:/^[0-9-]+$/',
+        'student_id_rules_guide' => 'Student ID must contain only numbers and dashes',
+        'pickup_points' => [
+            ['name' => 'Main Gate'],
+            ['name' => 'Library'],
+        ],
+        'departments' => [
+            ['name' => 'CSE'],
+            ['name' => 'EEE'],
+        ],
+        'sections' => [
+            ['name' => 'A'],
+            ['name' => 'B'],
+        ],
+        'lab_teacher_names' => [
+            ['initial' => 'ABC', 'full_name' => 'Dr. John Doe'],
+        ],
+    ]);
+
+    expect($paidEvent->student_id_rules)->toBe('regex:/^[0-9-]+$/')
+        ->and($paidEvent->student_id_rules_guide)->toContain('Student ID')
+        ->and($paidEvent->pickup_points)->toHaveCount(2)
+        ->and($paidEvent->departments)->toHaveCount(2)
+        ->and($paidEvent->sections)->toHaveCount(2)
+        ->and($paidEvent->lab_teacher_names)->toHaveCount(1)
+        ->and($paidEvent->lab_teacher_names[0]['initial'])->toBe('ABC');
 });

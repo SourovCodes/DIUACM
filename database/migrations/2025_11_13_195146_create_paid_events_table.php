@@ -21,6 +21,12 @@ return new class extends Migration
             $table->dateTime('registration_start_time');
             $table->unsignedInteger('registration_limit')->nullable();
             $table->decimal('registration_fee', 8, 2)->default(0);
+            $table->string('student_id_rules')->nullable();
+            $table->string('student_id_rules_guide')->nullable();
+            $table->json('pickup_points')->nullable();
+            $table->json('departments')->nullable();
+            $table->json('sections')->nullable();
+            $table->json('lab_teacher_names')->nullable();
             $table->string('status')->default('draft');
             $table->timestamps();
         });

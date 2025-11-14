@@ -25,6 +25,12 @@ class PaidEvent extends Model implements HasMedia
         'registration_start_time',
         'registration_limit',
         'registration_fee',
+        'student_id_rules',
+        'student_id_rules_guide',
+        'pickup_points',
+        'departments',
+        'sections',
+        'lab_teacher_names',
         'status',
     ];
 
@@ -34,6 +40,10 @@ class PaidEvent extends Model implements HasMedia
             'registration_deadline' => 'datetime',
             'registration_start_time' => 'datetime',
             'registration_fee' => 'decimal:2',
+            'pickup_points' => 'array',
+            'departments' => 'array',
+            'sections' => 'array',
+            'lab_teacher_names' => 'array',
         ];
     }
 
