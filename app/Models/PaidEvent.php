@@ -4,11 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class PaidEvent extends Model
+class PaidEvent extends Model implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\PaidEventFactory> */
     use HasFactory;
+
+    use InteractsWithMedia;
 
     protected $fillable = [
         'title',
@@ -93,5 +99,20 @@ class PaidEvent extends Model
         // TODO: Implement when registration relationship is added
         // return $this->registrations()->count() >= $this->registration_limit;
         return false;
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('banner_image')
+            ->useFallbackUrl(url: asset('images/diuacm.jpeg'))
+            ->singleFile()
+            ->useDisk(diskName: 'media')
+            ->registerMediaConversions(function (?Media $media = null) {
+                $this
+                    ->addMediaConversion('banner')
+                    ->fit(Fit::Contain, 1000, 700)
+                    ->nonQueued();
+            });
     }
 }

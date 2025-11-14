@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -16,6 +17,12 @@ class PaidEventsTable
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('banner_image')
+                    ->collection('banner_image')
+                    ->conversion('banner')
+                    ->label('Banner')
+                    ->circular()
+                    ->toggleable(),
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),

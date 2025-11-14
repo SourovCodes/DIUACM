@@ -63,3 +63,12 @@ test('registration is closed when outside time range', function () {
 
     expect($paidEvent->isRegistrationOpen())->toBeFalse();
 });
+
+test('paid event has banner image media collection', function () {
+    $paidEvent = PaidEvent::factory()->create();
+
+    expect($paidEvent)->toBeInstanceOf(\Spatie\MediaLibrary\HasMedia::class);
+    
+    // Verify we can work with the banner_image collection
+    expect($paidEvent->getMedia('banner_image')->count())->toBe(0);
+});
