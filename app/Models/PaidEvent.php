@@ -114,7 +114,7 @@ class PaidEvent extends Model implements HasMedia
 
     public function registrations(): HasMany
     {
-        return $this->hasMany(PaidEventRegistration::class);
+        return $this->hasMany(Registration::class);
     }
 
     public function registerMediaCollections(): void
