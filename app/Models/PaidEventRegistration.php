@@ -31,7 +31,6 @@ class PaidEventRegistration extends Model
         'amount',
         'payment_method',
         'status',
-        'transaction_id',
     ];
 
     protected function casts(): array

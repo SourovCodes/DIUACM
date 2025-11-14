@@ -40,7 +40,6 @@ class PaidEventRegistrationFactory extends Factory
             'amount' => fake()->randomFloat(2, 100, 2000),
             'payment_method' => PaymentMethod::SSLCOMMERZ,
             'status' => fake()->randomElement(RegistrationStatus::cases()),
-            'transaction_id' => 'TXN'.strtoupper(fake()->unique()->bothify('??########')),
         ];
     }
 

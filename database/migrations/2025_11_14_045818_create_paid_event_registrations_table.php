@@ -34,7 +34,6 @@ return new class extends Migration
             // Payment Information
             $table->decimal('amount', 10, 2);
             $table->string('status')->default('pending');
-            $table->string('transaction_id')->unique();
 
             $table->timestamps();
 
