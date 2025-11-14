@@ -134,7 +134,7 @@ export default function PaidEventDetailsPage({ paidEvent, registrationInfo }: Pa
                         {/* Banner Image */}
                         {paidEvent.banner_image_url && (
                             <div className="mb-6 overflow-hidden rounded-xl border border-slate-200 shadow-sm dark:border-slate-700">
-                                <img src={paidEvent.banner_image_url} alt={paidEvent.title} className="w-full object-contain" />
+                                <img src={paidEvent.banner_image_url} alt={paidEvent.title} className="aspect-video w-full object-cover" />
                             </div>
                         )}
 
@@ -253,8 +253,8 @@ export default function PaidEventDetailsPage({ paidEvent, registrationInfo }: Pa
                             <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
                                 <div className="mb-4 flex items-center justify-between">
                                     <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Registration Fee</span>
-                                    <div className="flex items-center gap-1 text-2xl font-bold text-blue-600 dark:text-blue-400">
-                                        <DollarSign className="h-5 w-5" />৳{paidEvent.registration_fee}
+                                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                                        ৳{paidEvent.registration_fee}
                                     </div>
                                 </div>
 
