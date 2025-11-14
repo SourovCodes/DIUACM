@@ -154,16 +154,23 @@ export default function PaidEventDetailsPage({ paidEvent, registrationInfo }: Pa
                         )}
 
                         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-                            <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
-                                <div className="flex-1">
-                                    <h1 className="mb-2 text-2xl font-bold text-slate-900 sm:text-3xl dark:text-white">
+                            <div className="mb-4">
+                                <div className="mb-3 flex items-start justify-between gap-3">
+                                    <h1 className="flex-1 text-2xl font-bold text-slate-900 sm:text-3xl dark:text-white">
                                         {paidEvent.title}
                                     </h1>
+                                    <div className="hidden shrink-0 sm:block">
+                                        <RegistrationStatusBadge />
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-2">
                                     <Badge variant="outline" className="border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
                                         📚 {paidEvent.semester}
                                     </Badge>
+                                    <div className="sm:hidden">
+                                        <RegistrationStatusBadge />
+                                    </div>
                                 </div>
-                                <RegistrationStatusBadge />
                             </div>
 
                             {/* Description */}
