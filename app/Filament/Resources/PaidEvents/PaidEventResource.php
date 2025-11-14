@@ -5,6 +5,7 @@ namespace App\Filament\Resources\PaidEvents;
 use App\Filament\Resources\PaidEvents\Pages\CreatePaidEvent;
 use App\Filament\Resources\PaidEvents\Pages\EditPaidEvent;
 use App\Filament\Resources\PaidEvents\Pages\ListPaidEvents;
+use App\Filament\Resources\PaidEvents\Pages\ManagePaidEventRegistrations;
 use App\Filament\Resources\PaidEvents\Schemas\PaidEventForm;
 use App\Filament\Resources\PaidEvents\Tables\PaidEventsTable;
 use App\Models\PaidEvent;
@@ -77,6 +78,7 @@ class PaidEventResource extends Resource
             'index' => ListPaidEvents::route('/'),
             'create' => CreatePaidEvent::route('/create'),
             'edit' => EditPaidEvent::route('/{record}/edit'),
+            'registrations' => ManagePaidEventRegistrations::route('/{record}/registrations'),
         ];
     }
 }
