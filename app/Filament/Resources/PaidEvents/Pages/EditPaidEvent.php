@@ -4,7 +4,6 @@ namespace App\Filament\Resources\PaidEvents\Pages;
 
 use App\Filament\Resources\PaidEvents\PaidEventResource;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditPaidEvent extends EditRecord
@@ -14,7 +13,6 @@ class EditPaidEvent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
             DeleteAction::make(),
         ];
     }
