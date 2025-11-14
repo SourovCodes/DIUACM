@@ -33,6 +33,7 @@ return new class extends Migration
 
             // Payment Information
             $table->decimal('amount', 10, 2);
+            $table->string('payment_method')->default('sslcommerz');
             $table->string('status')->default('pending');
 
             $table->timestamps();
