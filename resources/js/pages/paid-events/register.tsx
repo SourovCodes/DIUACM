@@ -116,7 +116,12 @@ export default function RegisterPage({ paidEvent, user, tshirtSizes, genders }: 
         }
     };
 
-    const handleNextStep = async () => {
+    const handleNextStep = async (e?: React.MouseEvent<HTMLButtonElement>) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
         if (step === 1) {
             const isValid = await validateStudentIdStep();
             if (isValid) {
