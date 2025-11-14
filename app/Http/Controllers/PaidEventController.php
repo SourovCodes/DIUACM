@@ -155,6 +155,9 @@ class PaidEventController extends Controller
 
         $user = auth()->user();
 
+        // Get t-shirt size guideline image
+        $tshirtGuidelineUrl = $paidEvent->getFirstMediaUrl('tshirt_size_guideline');
+
         return Inertia::render('paid-events/register', [
             'paidEvent' => [
                 'id' => $paidEvent->id,
@@ -169,6 +172,7 @@ class PaidEventController extends Controller
                 'sections' => $paidEvent->sections,
                 'lab_teacher_names' => $paidEvent->lab_teacher_names,
                 'tshirt_sizes' => $paidEvent->tshirt_sizes,
+                'tshirt_guideline_url' => $tshirtGuidelineUrl,
             ],
             'user' => [
                 'email' => $user->email,

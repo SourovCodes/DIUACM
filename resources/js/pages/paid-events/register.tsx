@@ -22,6 +22,7 @@ type PaidEvent = {
     sections: { name: string }[] | null;
     lab_teacher_names: { initial: string; full_name: string }[] | null;
     tshirt_sizes: string[] | null;
+    tshirt_guideline_url: string | null;
 };
 
 type User = {
@@ -261,7 +262,7 @@ export default function RegisterPage({ paidEvent, user, tshirtSizes, genders }: 
                 </div>
 
                 {/* Form Container */}
-                <div className="mx-auto max-w-3xl">
+                <div className="mx-auto max-w-5xl">
                     <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 dark:border-slate-700 dark:bg-slate-900">
                         <StepIndicator />
 
@@ -484,6 +485,20 @@ export default function RegisterPage({ paidEvent, user, tshirtSizes, genders }: 
                                             )}
                                         </div>
                                     </div>
+
+                                    {/* T-shirt Size Guideline */}
+                                    {paidEvent.tshirt_guideline_url && (
+                                        <div className="space-y-2">
+                                            <Label className="text-slate-700 dark:text-slate-300">T-shirt Size Guide</Label>
+                                            <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+                                                <img 
+                                                    src={paidEvent.tshirt_guideline_url} 
+                                                    alt="T-shirt Size Guide" 
+                                                    className="h-auto w-full object-contain"
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
 
