@@ -18,9 +18,10 @@ class RoleAndPermissionSeeder extends Seeder
         $this->command->info('Creating roles and permissions...');
 
         // Create super_admin role if it doesn't exist
+        // Note: With 'define_via_gate' => true in config, super_admin bypasses all permission checks
         if (! Role::where('name', 'super_admin')->exists()) {
             Role::create(['name' => 'super_admin']);
-            $this->command->info('✅ super_admin role created');
+            $this->command->info('✅ super_admin role created (bypasses all permission checks via gate)');
         } else {
             $this->command->info('ℹ️  super_admin role already exists');
         }
