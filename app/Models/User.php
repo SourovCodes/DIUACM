@@ -116,6 +116,11 @@ class User extends Authenticatable implements FilamentUser, HasMedia, MustVerify
             ->withTimestamps();
     }
 
+    public function paidEventRegistrations()
+    {
+        return $this->hasMany(PaidEventRegistration::class);
+    }
+
     /**
      * Scope a query to search users by various fields.
      */

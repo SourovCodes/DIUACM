@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -108,9 +109,12 @@ class PaidEvent extends Model implements HasMedia
             return false;
         }
 
-        // TODO: Implement when registration relationship is added
-        // return $this->registrations()->count() >= $this->registration_limit;
-        return false;
+        return $this->registrations()->confirmed()->count() >= $this->registration_limit;
+    }
+
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(PaidEventRegistration::class);
     }
 
     public function registerMediaCollections(): void
